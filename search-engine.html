@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Engine</title>
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: #fcfdfd;
+            color: #282d34;
+            font-family: Arial, sans-serif;
+        }
+
+        .weather {
+            position: absolute;
+            top: 38px;
+            right: 48px;
+            text-align: right;
+        }
+
+        .degrees { font-size: 24px; }
+
+        .city {
+            margin-top: 4px;
+            font-size: 12px;
+            color: #748093;
+            text-decoration: underline;
+        }
+
+        main {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .content {
+            width: 520px;
+            margin-top: -60px;
+            text-align: center;
+        }
+
+        .clock {
+            margin: 0;
+            font-size: 46px;
+            font-weight: 600;
+        }
+
+        .greeting {
+            margin: 14px 0 35px;
+            color: #536fa0;
+            font-size: 18px;
+        }
+
+        .search {
+            display: flex;
+            align-items: center;
+            height: 52px;
+            padding: 0 17px;
+            border: 1px solid #edf0f2;
+            border-radius: 12px;
+            background: white;
+            box-shadow: 0 4px 18px rgba(30, 55, 75, 0.04);
+        }
+
+        .search span {
+            margin-right: 11px;
+            color: #9ca6af;
+            font-size: 21px;
+        }
+
+        .search input {
+            width: 100%;
+            border: 0;
+            outline: 0;
+            color: #282d34;
+            font: 16px Arial, sans-serif;
+        }
+
+        .search input::placeholder { color: #aeb7bf; }
+
+        .links {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 28px;
+        }
+
+        .links a {
+            width: 42px;
+            height: 42px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            background: #f5f7f8;
+            color: #84909b;
+            text-decoration: none;
+        }
+
+        .links a:hover { background: #e8eef4; }
+
+        .links svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .links .add { font-size: 25px; }
+    </style>
+</head>
+<body>
+    <div class="weather">
+        <div class="degrees">36°</div>
+        <div class="city">Weather</div>
+    </div>
+
+    <main>
+        <div class="content">
+            <h1 class="clock">09:11:01</h1>
+            <p class="greeting">Good Morning, Saad.</p>
+
+            <form class="search" action="https://www.google.com/search" method="get">
+                <span aria-hidden="true">⌕</span>
+                <input type="search" name="q" placeholder="Search" aria-label="Search">
+            </form>
+
+            <div class="links">
+                <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" title="YouTube" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <rect x="2" y="5" width="20" height="14" rx="4" fill="#ff0033"/>
+                        <path d="M10 8.5v7l6-3.5z" fill="white"/>
+                    </svg>
+                </a>
+
+                <!-- По условию значок ChatGPT открывает Алису AI. -->
+                <a href="https://alice.yandex.ru/" title="Открыть Алису AI" aria-label="Открыть Алису AI" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#242c32" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M11.217 19.384a3.501 3.501 0 0 0 6.783 -1.217v-5.167l-6 -3.35"/>
+                        <path d="M5.214 15.014a3.501 3.501 0 0 0 4.446 5.266l4.34 -2.534v-6.946"/>
+                        <path d="M6 7.63c-1.391 -.236 -2.787 .395 -3.534 1.689a3.474 3.474 0 0 0 1.271 4.745l4.263 2.514l6 -3.348"/>
+                        <path d="M12.783 4.616a3.501 3.501 0 0 0 -6.783 1.217v5.067l6 3.45"/>
+                        <path d="M18.786 8.986a3.501 3.501 0 0 0 -4.446 -5.266l-4.34 2.534v6.946"/>
+                        <path d="M18 16.302c1.391 .236 2.787 -.395 3.534 -1.689a3.474 3.474 0 0 0 -1.271 -4.745l-4.308 -2.514l-5.955 3.42"/>
+                    </svg>
+                </a>
+
+                <a href="https://www.google.com/" title="Google" aria-label="Google" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill="#4285f4" d="M21.35 12.04c0-.71-.06-1.39-.18-2.04H12v3.8h5.24a4.48 4.48 0 0 1-1.95 2.94v2.45h3.15c1.84-1.7 2.91-4.2 2.91-7.15z"/>
+                        <path fill="#34a853" d="M12 21.5c2.63 0 4.83-.87 6.44-2.31l-3.15-2.45c-.87.58-1.98.93-3.29.93-2.53 0-4.67-1.71-5.44-4.02H3.3v2.53A9.75 9.75 0 0 0 12 21.5z"/>
+                        <path fill="#fbbc05" d="M6.56 13.65A5.86 5.86 0 0 1 6.25 12c0-.57.11-1.13.31-1.65V7.82H3.3a9.77 9.77 0 0 0 0 8.36l3.26-2.53z"/>
+                        <path fill="#ea4335" d="M12 6.33c1.43 0 2.71.49 3.72 1.47l2.79-2.79A9.37 9.37 0 0 0 12 2.5a9.75 9.75 0 0 0-8.7 5.32l3.26 2.53c.77-2.31 2.91-4.02 5.44-4.02z"/>
+                    </svg>
+                </a>
+
+                <a href="https://chat.deepseek.com/" title="DeepSeek" aria-label="DeepSeek" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="#5786fe" aria-hidden="true">
+                        <path d="M23.748 4.651c-.254-.124-.364.113-.512.233-.051.04-.094.09-.137.137-.372.397-.806.657-1.373.626-.829-.046-1.537.214-2.163.848-.133-.782-.575-1.248-1.247-1.548-.352-.155-.708-.311-.955-.65-.172-.24-.219-.509-.305-.774-.055-.16-.11-.323-.293-.35-.2-.031-.278.136-.356.276-.313.572-.434 1.202-.422 1.84.027 1.436.633 2.58 1.838 3.393.137.094.172.187.129.323-.082.28-.18.553-.266.833-.055.179-.137.218-.328.14a5.5 5.5 0 0 1-1.737-1.179c-.857-.828-1.631-1.743-2.597-2.46a12 12 0 0 0-.689-.47c-.985-.957.13-1.743.387-1.836.27-.098.094-.433-.778-.428-.872.003-1.67.295-2.687.685a3 3 0 0 1-.465.136 9.6 9.6 0 0 0-2.883-.101c-1.885.21-3.39 1.1-4.497 2.622C.082 8.776-.231 10.854.152 13.02c.403 2.284 1.568 4.175 3.36 5.653 1.857 1.533 3.997 2.284 6.438 2.14 1.482-.085 3.132-.284 4.994-1.86.47.234.962.328 1.78.398.629.058 1.235-.031 1.705-.129.735-.155.684-.836.418-.961-2.155-1.004-1.682-.595-2.112-.926 1.095-1.295 2.768-3.598 3.284-6.733.05-.346.115-.834.108-1.114-.004-.171.035-.238.23-.257a4.2 4.2 0 0 0 1.545-.475c1.397-.763 1.96-2.016 2.093-3.517.02-.23-.004-.467-.247-.588M11.58 18.168c-2.088-1.642-3.101-2.183-3.52-2.16-.39.024-.32.472-.234.763.09.288.207.487.371.74.114.167.192.416-.113.603-.673.416-1.842-.14-1.897-.168-1.361-.801-2.5-1.86-3.301-3.306-.775-1.393-1.225-2.888-1.299-4.482-.02-.385.094-.522.477-.592a4.7 4.7 0 0 1 1.53-.038c2.131.311 3.946 1.264 5.467 2.774.868.86 1.525 1.887 2.202 2.89.72 1.066 1.494 2.082 2.48 2.915.348.291.626.513.892.677-.802.09-2.14.109-3.055-.615zm1.001-6.44a.306.306 0 0 1 .415-.287.3.3 0 0 1 .113.074.3.3 0 0 1 .086.214c0 .17-.136.307-.308.307a.303.303 0 0 1-.306-.307m3.11 1.596c-.2.081-.4.151-.591.16a1.25 1.25 0 0 1-.798-.254c-.274-.23-.47-.358-.551-.758a1.7 1.7 0 0 1 .015-.588c.07-.327-.007-.537-.238-.727-.188-.156-.426-.199-.689-.199a.6.6 0 0 1-.254-.078.253.253 0 0 1-.114-.358 1 1 0 0 1 .192-.21c.356-.202.767-.136 1.146.016.352.144.618.408 1.001.782.392.451.462.576.685.915.176.264.336.536.446.848.066.194-.02.353-.25.45"/>
+                    </svg>
+                </a>
+
+                <a href="https://github.com/" title="GitHub" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="#181717" aria-hidden="true">
+                        <path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.77.6-3.35-1.18-3.35-1.18-.45-1.15-1.1-1.46-1.1-1.46-.9-.62.07-.61.07-.61 1 .07 1.52 1.02 1.52 1.02.88 1.5 2.3 1.07 2.86.82.09-.64.34-1.07.62-1.32-2.21-.25-4.53-1.1-4.53-4.94 0-1.09.39-1.98 1.02-2.68-.1-.25-.44-1.27.1-2.65 0 0 .83-.27 2.72 1.02A9.45 9.45 0 0 1 12 6.31c.84 0 1.68.11 2.47.33 1.89-1.29 2.72-1.02 2.72-1.02.54 1.38.2 2.4.1 2.65.63.7 1.02 1.59 1.02 2.68 0 3.85-2.33 4.69-4.55 4.94.35.3.66.9.66 1.81v2.69c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/>
+                    </svg>
+                </a>
+
+                <a href="https://www.linkedin.com/" title="LinkedIn" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 16 16" fill="#0a66c2" aria-hidden="true">
+                        <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/>
+                    </svg>
+                </a>
+
+                <a class="add" href="https://www.google.com/" title="Открыть Google" aria-label="Открыть Google" target="_blank" rel="noopener noreferrer">+</a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
