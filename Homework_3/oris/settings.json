@@ -1,0 +1,5 @@
+{
+  "Url": "http://localhost:8888/",
+  "RootDirectory": "static",
+  "DefaultDocument": "search-engine.html"
+}
