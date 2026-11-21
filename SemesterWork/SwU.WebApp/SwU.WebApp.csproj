@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>SwU.WebApp</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SwU.HttpFramework\SwU.HttpFramework.csproj" />
+    <ProjectReference Include="..\SwU.Orm\SwU.Orm.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Шаблоны и статика должны лежать рядом с собранным приложением -->
+    <None Update="Views\**\*" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="wwwroot\**\*" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{PageTitle}} — SWU DB</title>
+    <link rel="stylesheet" href="/css/site.css">
+    {{#if IsCardForm}}<link rel="stylesheet" href="/vendor/quill/quill.snow.css">{{/if}}
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="brand" href="/">
+                <img class="brand-logo" src="/images/ui/logo.webp" alt="Star Wars Unlimited" onerror="this.style.display='none';document.getElementById('brand-fallback').style.display='inline'">
+                <span id="brand-fallback" class="brand-fallback">UNLIMITED</span>
+            </a>
+            <button id="nav-toggle" class="nav-toggle" type="button" aria-label="Menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+            <nav id="main-nav" class="main-nav" aria-label="Main navigation">
+                <a href="/">Cards</a>
+                <a href="/decks">Decks</a>
+                <a href="/meta">Meta</a>
+                <a href="/collection">Collection</a>
+                <a href="/community">Others</a>
+                <a href="/proxy-cards">Proxy cards</a>
+                {{#if IsAdmin}}<a class="nav-admin" href="/admin">Admin</a>{{/if}}
+            </nav>
+            <div class="user-area">
+                {{#if IsAuthenticated}}<span class="user-name">{{DisplayName}}</span>{{/if}}
+                {{#if IsAuthenticated}}<form class="inline-form" method="post" action="/logout"><button class="btn btn-small" type="submit">Log out</button></form>{{/if}}
+                {{#if IsAnonymous}}<a class="btn-login" href="/login">Log in</a>{{/if}}
+                {{#if IsAnonymous}}<a class="nav-register" href="/register">Register</a>{{/if}}
+            </div>
+        </div>
+    </header>
+
+    <main class="container page">
+        {{{Body}}}
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <div class="footer-about">
+                <strong>Star Wars Unlimited</strong>
+                <p>Star Wars Unlimited is a trademark of Fantasy Flight Games. This is an unofficial fan site and is not affiliated with, endorsed or sponsored by Fantasy Flight Games.</p>
+                <span>&copy; {{CurrentYear}} SWU DB</span>
+            </div>
+            <div class="footer-links">
+                <div class="footer-col">
+                    <h3>Star Wars Unlimited</h3>
+                    <a href="/">Cards</a>
+                    <a href="/decks">Decks</a>
+                    <a href="/meta">Meta</a>
+                    <a href="/collection">Collection</a>
+                </div>
+                <div class="footer-col">
+                    <h3>Other sites</h3>
+                    <a href="https://shatterpointdb.com/">Shatterpoint DB</a>
+                    <a href="https://hubworldaidalon.com/">Hubworld: Aidalon</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    {{#if IsCardForm}}<script src="/vendor/quill/quill.js"></script>{{/if}}
+    <script src="/js/app.js"></script>
+</body>
+</html>

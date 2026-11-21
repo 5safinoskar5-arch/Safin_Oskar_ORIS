@@ -1,0 +1,21 @@
+# Артефакты сборки
+bin/
+obj/
+**/bin/
+**/obj/
+
+# Git и служебные файлы репозитория
+.git/
+.gitignore
+.opencode/
+
+# Документация и тесты в образ не нужны
+SwU.Tests/
+AGENTS.md
+DEFENSE_GUIDE.md
+README.md
+
+# Локальные настройки IDE
+.vs/
+.idea/
+*.user

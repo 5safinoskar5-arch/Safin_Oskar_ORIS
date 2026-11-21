@@ -1,0 +1,126 @@
+<section class="page-heading">
+    <div>
+        <p class="eyebrow">Management</p>
+        <h1>Admin panel</h1>
+        <p class="muted">Cards: <strong>{{CardCount}}</strong> · Sets: <strong>{{SetCount}}</strong></p>
+    </div>
+    <a class="btn btn-primary" href="/admin/cards/create">Add card</a>
+</section>
+
+{{#if AdminNotice}}<div class="alert alert-success">{{AdminNotice}}</div>{{/if}}
+{{#if AdminError}}<div class="alert alert-error">{{AdminError}}</div>{{/if}}
+
+<section class="admin-section">
+    <div class="section-heading">
+        <h2>New set</h2>
+        <p class="muted">Set code: 2–10 uppercase Latin letters or digits.</p>
+    </div>
+    <form class="admin-form" method="post" action="/admin/sets/create">
+        <div class="filter-grid">
+            <label class="field">
+                <span>Code</span>
+                <input type="text" name="code" value="{{SetForm.Code}}" minlength="2" maxlength="10" pattern="[A-Z0-9]{2,10}" placeholder="IC27" required>
+                <span class="field-error" hidden>2–10 uppercase letters or digits.</span>
+            </label>
+            <label class="field field-wide">
+                <span>Name</span>
+                <input type="text" name="name" value="{{SetForm.Name}}" maxlength="100" placeholder="Icons 2027" required>
+                <span class="field-error" hidden>Please enter the set name.</span>
+            </label>
+            <label class="field">
+                <span>Release date</span>
+                <input type="date" name="releaseDate" value="{{SetForm.ReleaseDateValue}}" required>
+                <span class="field-error" hidden>Please choose a release date.</span>
+            </label>
+        </div>
+        <label class="field">
+            <span>Description</span>
+            <textarea name="description" rows="2" maxlength="2000" placeholder="Short set description">{{SetForm.Description}}</textarea>
+        </label>
+        <button class="btn btn-primary" type="submit">Create set</button>
+    </form>
+</section>
+
+<section class="admin-section">
+    <div class="section-heading">
+        <h2>Sets</h2>
+    </div>
+    {{#if SetsEmpty}}<p class="muted">No sets yet. Create the first one above.</p>{{/if}}
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Code</th>
+                    <th>Name</th>
+                    <th>Release</th>
+                    <th>Description</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each Sets}}
+                <tr>
+                    <td><strong>{{Code}}</strong></td>
+                    <td>{{Name}}</td>
+                    <td>{{ReleaseDateText}}</td>
+                    <td class="table-description">{{Description}}</td>
+                    <td class="actions-cell">
+                        <form class="inline-form" method="post" action="/admin/sets/delete" data-confirm="Delete this set together with all its cards?">
+                            <input type="hidden" name="id" value="{{Id}}">
+                            <button class="btn btn-danger btn-small" type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<section class="admin-section">
+    <div class="section-heading">
+        <h2>Cards</h2>
+        <a class="btn btn-ghost btn-small" href="/admin/cards/create">New card</a>
+    </div>
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Image</th>
+                    <th>Card</th>
+                    <th>Number</th>
+                    <th>Set</th>
+                    <th>Aspect</th>
+                    <th>Rarity</th>
+                    <th>Cost</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each Cards}}
+                <tr data-card-row>
+                    <td class="muted">{{Id}}</td>
+                    <td><img class="table-thumb" src="{{ImageUrlDisplay}}" alt="{{Name}}" loading="lazy" onerror="this.onerror=null;this.src='/images/cards/placeholder.svg';"></td>
+                    <td>
+                        <strong>{{Name}}</strong>
+                        {{#if Subtitle}}<br><span class="muted">{{Subtitle}}</span>{{/if}}
+                    </td>
+                    <td>{{CardNumber}}</td>
+                    <td>{{SetCode}}</td>
+                    <td>{{Aspect}}</td>
+                    <td>{{Rarity}}</td>
+                    <td>{{Cost}}</td>
+                    <td class="actions-cell">
+                        <a class="btn btn-ghost btn-small" href="/admin/cards/edit?id={{Id}}">Edit</a>
+                        <form class="inline-form delete-card-form" method="post" action="/admin/cards/delete" data-delete-card-form>
+                            <input type="hidden" name="id" value="{{Id}}">
+                            <button class="btn btn-danger btn-small" type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</section>

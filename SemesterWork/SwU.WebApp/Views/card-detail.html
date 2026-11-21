@@ -1,0 +1,108 @@
+<div class="detail-layout">
+    <div class="detail-image-col">
+        <img class="detail-image" src="{{Card.ImageUrlDisplay}}" alt="{{Card.Name}}" onerror="this.onerror=null;this.src='/images/cards/placeholder.svg';">
+    </div>
+
+    <div class="detail-info">
+        <section class="detail-block">
+            <h1>{{Card.Name}}</h1>
+            {{#if Card.Subtitle}}<p class="detail-subtitle">{{Card.Subtitle}}</p>{{/if}}
+
+            {{#if Aspects}}
+            <div class="badge-row">
+                {{#each Aspects}}<span class="badge">{{this}}</span>{{/each}}
+            </div>
+            {{/if}}
+
+            <hr>
+
+            {{#if AbilityHtml}}
+            <div class="ability-content">{{{AbilityHtml}}}</div>
+            {{else}}
+            <p class="muted">No ability text available.</p>
+            {{/if}}
+
+            <hr>
+
+            <dl class="detail-facts">
+                <div class="detail-fact"><dt>Cost</dt><dd>{{Card.Cost}}</dd></div>
+                {{#if Card.HasPower}}<div class="detail-fact"><dt>Power</dt><dd>{{Card.PowerText}}</dd></div>{{/if}}
+                {{#if Card.HasHp}}<div class="detail-fact"><dt>Health</dt><dd>{{Card.HpText}}</dd></div>{{/if}}
+                <div class="detail-fact"><dt>Type</dt><dd>{{Card.CardType}}</dd></div>
+                <div class="detail-fact"><dt>Rarity</dt><dd>{{Card.Rarity}}</dd></div>
+                <div class="detail-fact"><dt>Set</dt><dd>{{SetName}}</dd></div>
+                <div class="detail-fact"><dt>Card ID</dt><dd>{{Card.CardNumber}}</dd></div>
+                {{#if HasArtist}}<div class="detail-fact"><dt>Artist</dt><dd>{{Card.Artist}}</dd></div>{{/if}}
+            </dl>
+
+            {{#if Traits}}
+            <div class="badge-row">
+                {{#each Traits}}<span class="badge">{{this}}</span>{{/each}}
+            </div>
+            {{/if}}
+        </section>
+
+        <section class="detail-block">
+            <h2>Comments <span class="count-pill">{{CommentCount}}</span></h2>
+
+            {{#if CommentAdded}}<div class="alert alert-success">Comment added.</div>{{/if}}
+            {{#if CommentError}}<div class="alert alert-error">{{CommentError}}</div>{{/if}}
+
+            {{#if Comments}}
+            <div class="comment-list">
+                {{#each Comments}}
+                <article class="comment">
+                    <div class="comment-head">
+                        <strong>{{Username}}</strong>
+                        <span class="muted">{{FormattedDate}}</span>
+                        <span class="rating-pill">{{Rating}} / 5</span>
+                    </div>
+                    <h3>{{Title}}</h3>
+                    <p class="comment-body">{{Body}}</p>
+                </article>
+                {{/each}}
+            </div>
+            {{else}}
+            <p class="muted">No comments yet. Be the first to share your opinion.</p>
+            {{/if}}
+
+            {{#if IsAuthenticated}}
+            <form class="comment-form" method="post" action="/cards/comment">
+                <h2>Add a comment</h2>
+                <input type="hidden" name="cardId" value="{{Card.Id}}">
+                <div class="form-row">
+                    <label class="field">
+                        <span>Title (optional)</span>
+                        <input type="text" name="title" maxlength="120" placeholder="Short summary">
+                        <span class="field-error" hidden>Please enter a valid title.</span>
+                    </label>
+                    <label class="field">
+                        <span>Rating</span>
+                        <select name="rating" required>
+                            <option value="5">5 — excellent</option>
+                            <option value="4">4 — good</option>
+                            <option value="3">3 — average</option>
+                            <option value="2">2 — poor</option>
+                            <option value="1">1 — bad</option>
+                        </select>
+                    </label>
+                </div>
+                <label class="field">
+                    <span>Comment</span>
+                    <textarea id="comment-body" name="body" rows="4" minlength="3" maxlength="500" required placeholder="From 3 to 500 characters"></textarea>
+                    <span id="comment-char-counter" class="char-counter">0 / 500</span>
+                    <span class="field-error" hidden>Please enter from 3 to 500 characters.</span>
+                </label>
+                <button class="btn btn-primary" type="submit">Add comment</button>
+            </form>
+            {{else}}
+            <p class="muted">To leave a comment, please <a href="/login">log in</a> or <a href="/register">register</a>.</p>
+            {{/if}}
+        </section>
+
+        <section class="detail-block">
+            <h2>Price History</h2>
+            <div class="price-history">No price history available.</div>
+        </section>
+    </div>
+</div>

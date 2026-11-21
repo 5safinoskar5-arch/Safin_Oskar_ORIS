@@ -1,0 +1,170 @@
+<section class="page-heading">
+    <div>
+        <h1>All cards</h1>
+        <p class="muted">This page contains all cards currently found in Star Wars: Unlimited. Clicking on any of the images will take you to their detail page where you'll be able to find all the information about the card.</p>
+    </div>
+</section>
+
+<form class="catalog-form" method="get" action="/cards">
+    <div class="search-row">
+        <div class="search-box">
+            <input type="text" name="search" value="{{Search}}" placeholder="Search..." maxlength="120">
+            <button class="search-submit" type="submit" aria-label="Search">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                    <circle cx="11" cy="11" r="7"></circle>
+                    <line x1="16.5" y1="16.5" x2="21" y2="21"></line>
+                </svg>
+            </button>
+        </div>
+        <button id="filters-toggle" class="btn-filters" type="button" aria-expanded="false" aria-controls="filters-drawer">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                <line x1="4" y1="7" x2="20" y2="7"></line>
+                <line x1="4" y1="12" x2="20" y2="12"></line>
+                <line x1="4" y1="17" x2="20" y2="17"></line>
+                <circle cx="9" cy="7" r="2" fill="currentColor"></circle>
+                <circle cx="15" cy="12" r="2" fill="currentColor"></circle>
+                <circle cx="9" cy="17" r="2" fill="currentColor"></circle>
+            </svg>
+            <span>Filters</span>
+        </button>
+    </div>
+
+    <input type="hidden" id="aspect-input" name="aspect" value="{{SelectedAspect}}">
+
+    <div class="aspects-block">
+        <span class="aspects-label">Aspects</span>
+        <div class="aspect-strip">
+            {{#each AspectOptions}}
+            <button type="button" class="aspect-btn {{#if Selected}}is-active{{/if}}" data-aspect="{{Value}}" title="{{Text}}" aria-label="{{Text}}" aria-pressed="{{#if Selected}}true{{else}}false{{/if}}">
+                <span class="aspect-icon aspect-icon-{{Value}}" aria-hidden="true"></span>
+            </button>
+            {{/each}}
+        </div>
+    </div>
+
+    <div id="filters-overlay" class="filters-overlay" hidden></div>
+
+    <aside id="filters-drawer" class="filters-drawer" aria-label="Filters" aria-hidden="true">
+        <div class="filters-head">
+            <h2>Filters</h2>
+            <button id="filters-close" class="filters-close" type="button" aria-label="Close filters">&times;</button>
+        </div>
+        <div class="filters-body">
+            <label class="field">
+                <span>Set</span>
+                <select name="setId">
+                    {{#each SetOptions}}
+                    <option value="{{Value}}" {{#if Selected}}selected{{/if}}>{{Text}}</option>
+                    {{/each}}
+                </select>
+            </label>
+            <label class="field">
+                <span>Card Type</span>
+                <select name="type">
+                    {{#each TypeOptions}}
+                    <option value="{{Value}}" {{#if Selected}}selected{{/if}}>{{Text}}</option>
+                    {{/each}}
+                </select>
+            </label>
+            <label class="field">
+                <span>Rarity</span>
+                <select name="rarity">
+                    {{#each RarityOptions}}
+                    <option value="{{Value}}" {{#if Selected}}selected{{/if}}>{{Text}}</option>
+                    {{/each}}
+                </select>
+            </label>
+            <label class="field">
+                <span>Trait</span>
+                <input type="text" name="trait" value="{{TraitValue}}" placeholder="e.g. Jedi" maxlength="60">
+            </label>
+            <div class="field">
+                <span>Cost</span>
+                <div class="range-row">
+                    <input type="number" name="minCost" value="{{MinCost}}" min="0" max="20" placeholder="Min">
+                    <input type="number" name="maxCost" value="{{MaxCost}}" min="0" max="20" placeholder="Max">
+                </div>
+            </div>
+            <div class="field">
+                <span>Power</span>
+                <div class="range-row">
+                    <input type="number" name="minPower" value="{{MinPower}}" min="0" max="30" placeholder="Min">
+                    <input type="number" name="maxPower" value="{{MaxPower}}" min="0" max="30" placeholder="Max">
+                </div>
+            </div>
+            <div class="field">
+                <span>Health</span>
+                <div class="range-row">
+                    <input type="number" name="minHp" value="{{MinHp}}" min="0" max="50" placeholder="Min">
+                    <input type="number" name="maxHp" value="{{MaxHp}}" min="0" max="50" placeholder="Max">
+                </div>
+            </div>
+        </div>
+        <div class="filters-foot">
+            <button id="filters-reset" class="btn btn-ghost" type="button">Reset all</button>
+            <button id="filters-done" class="btn btn-primary" type="button">Done</button>
+        </div>
+    </aside>
+
+    <div class="catalog-toolbar">
+        <div class="toolbar-left">
+            <label class="sort-control">
+                <span>Sort by:</span>
+                <select name="sort">
+                    {{#each SortOptions}}
+                    <option value="{{Value}}" {{#if Selected}}selected{{/if}}>{{Text}}</option>
+                    {{/each}}
+                </select>
+            </label>
+            <div class="layout-control">
+                <span>Layout:</span>
+                <button class="layout-btn" type="button" data-layout="table" aria-label="Table view" title="Table view" aria-pressed="false">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                        <rect x="1" y="3" width="14" height="2" rx="1"></rect>
+                        <rect x="1" y="7" width="14" height="2" rx="1"></rect>
+                        <rect x="1" y="11" width="14" height="2" rx="1"></rect>
+                    </svg>
+                </button>
+                <button class="layout-btn is-active" type="button" data-layout="grid" aria-label="Grid view" title="Grid view" aria-pressed="true">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                        <rect x="1" y="1" width="6" height="6" rx="1"></rect>
+                        <rect x="9" y="1" width="6" height="6" rx="1"></rect>
+                        <rect x="1" y="9" width="6" height="6" rx="1"></rect>
+                        <rect x="9" y="9" width="6" height="6" rx="1"></rect>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <span id="cards-count" class="cards-count">{{CardCount}} cards found</span>
+    </div>
+</form>
+
+<section class="catalog-section">
+    <div class="container">
+        <div id="cards-container" class="cards-grid">
+            {{#each Cards}}
+            <article class="card-tile">
+                <a class="card-cover" href="/cards/detail?id={{Id}}">
+                    <img src="{{ImageUrlDisplay}}" alt="{{Name}}" title="{{Name}}" loading="lazy" onerror="this.onerror=null;this.src='/images/cards/placeholder.svg';">
+                </a>
+                <p class="card-grid-caption">{{CardNumber}}</p>
+            </article>
+            {{/each}}
+        </div>
+
+        <div id="cards-empty-state" class="empty-state"{{#if CardCount}} hidden{{/if}}>
+            <h2>No cards found.</h2>
+            <p>Try a different search term or <a href="/cards">reset the filters</a>.</p>
+        </div>
+
+        <nav id="pagination" class="pagination" aria-label="Pagination">
+            {{#each PageLinks}}
+            {{#if Url}}
+            <a class="page-link" href="{{Url}}" data-page="{{Number}}">{{Text}}</a>
+            {{else}}
+            <span class="page-link {{CssClass}}">{{Text}}</span>
+            {{/if}}
+            {{/each}}
+        </nav>
+    </div>
+</section>

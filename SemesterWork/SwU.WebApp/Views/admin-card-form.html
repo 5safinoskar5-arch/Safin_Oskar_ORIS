@@ -1,0 +1,124 @@
+<section class="page-heading">
+    <div>
+        <p class="eyebrow">Admin panel</p>
+        <h1>{{PageTitle}}</h1>
+    </div>
+    <a class="btn btn-ghost" href="/admin">Back to admin panel</a>
+</section>
+
+{{#if Error}}<div class="alert alert-error">{{Error}}</div>{{/if}}
+{{#if SetsEmpty}}<div class="alert alert-error">Create at least one set on the admin page first.</div>{{/if}}
+
+<form class="admin-section admin-form" method="post" action="{{FormAction}}">
+    {{#if IsEdit}}<input type="hidden" name="id" value="{{Card.Id}}">{{/if}}
+
+    <div class="filter-grid">
+        <label class="field">
+            <span>Card number</span>
+            <input type="text" name="cardNumber" value="{{Card.CardNumber}}" minlength="5" maxlength="20" pattern="[A-Z0-9]{2,5}-[0-9]{2,3}" placeholder="SOR-001" required>
+            <span class="field-error" hidden>Use a code like SOR-001 or IC27-061.</span>
+        </label>
+        <label class="field field-wide">
+            <span>Name</span>
+            <input type="text" name="name" value="{{Card.Name}}" maxlength="120" placeholder="Luke Skywalker" required>
+            <span class="field-error" hidden>Please enter the card name.</span>
+        </label>
+        <label class="field field-wide">
+            <span>Subtitle</span>
+            <input type="text" name="subtitle" value="{{Card.Subtitle}}" maxlength="120" placeholder="Jedi Knight">
+            <span class="field-error" hidden>Subtitle is too long.</span>
+        </label>
+        <label class="field">
+            <span>Set</span>
+            <select name="setId" required>
+                {{#each SetOptions}}
+                <option value="{{Value}}" {{#if Selected}}selected{{/if}}>{{Text}}</option>
+                {{/each}}
+            </select>
+            <span class="field-error" hidden>Please choose a set.</span>
+        </label>
+        <label class="field">
+            <span>Type</span>
+            <input type="text" name="cardType" value="{{Card.CardType}}" list="card-types" maxlength="40" placeholder="Unit" required>
+            <span class="field-error" hidden>Please enter the card type.</span>
+        </label>
+        <label class="field">
+            <span>Aspect</span>
+            <input type="text" name="aspect" value="{{Card.Aspect}}" list="aspects" maxlength="60" placeholder="Vigilance" required>
+            <span class="field-error" hidden>Please enter an aspect.</span>
+        </label>
+        <label class="field">
+            <span>Rarity</span>
+            <input type="text" name="rarity" value="{{Card.Rarity}}" list="rarities" maxlength="30" placeholder="Rare" required>
+            <span class="field-error" hidden>Please enter a rarity.</span>
+        </label>
+        <label class="field">
+            <span>Cost</span>
+            <input type="number" name="cost" value="{{Card.Cost}}" min="0" max="20" required>
+            <span class="field-error" hidden>Cost must be from 0 to 20.</span>
+        </label>
+        <label class="field">
+            <span>Power</span>
+            <input type="number" name="power" value="{{Card.Power}}" min="0" max="30" placeholder="—">
+            <span class="field-error" hidden>Power must be from 0 to 30.</span>
+        </label>
+        <label class="field">
+            <span>HP</span>
+            <input type="number" name="hp" value="{{Card.Hp}}" min="0" max="50" placeholder="—">
+            <span class="field-error" hidden>HP must be from 0 to 50.</span>
+        </label>
+        <label class="field field-wide">
+            <span>Traits</span>
+            <input type="text" name="traits" value="{{Card.Traits}}" maxlength="200" placeholder="FORCE, REBEL, JEDI">
+            <span class="field-error" hidden>Traits are too long.</span>
+        </label>
+        <label class="field field-wide">
+            <span>Image URL</span>
+            <input type="text" name="imageUrl" value="{{Card.ImageUrl}}" maxlength="300" placeholder="/images/cards/card.webp">
+            <span class="field-error" hidden>Image URL is too long.</span>
+        </label>
+        <label class="field field-wide">
+            <span>Artist</span>
+            <input type="text" name="artist" value="{{Card.Artist}}" maxlength="100" placeholder="Borja Pindado">
+            <span class="field-error" hidden>Artist name is too long.</span>
+        </label>
+    </div>
+
+    <label class="field">
+        <span>Ability text</span>
+        <div id="ability-editor" class="ability-editor" aria-label="Ability text editor"></div>
+        <textarea id="ability-text" name="abilityText" rows="8" class="ability-source" placeholder="<p><strong>Action:</strong> ...</p>">{{Card.AbilityText}}</textarea>
+        <span class="muted field-hint">Basic tags are allowed: paragraph, line break, bold, italic, underline, lists.</span>
+        <span class="field-error" hidden>Please check the ability text.</span>
+    </label>
+
+    <div class="form-actions">
+        <button class="btn btn-primary" type="submit">{{#if IsEdit}}Save card{{else}}Create card{{/if}}</button>
+        <a class="btn btn-ghost" href="/admin">Cancel</a>
+    </div>
+</form>
+
+<datalist id="card-types">
+    <option value="Leader">
+    <option value="Unit">
+    <option value="Upgrade">
+    <option value="Event">
+    <option value="Base">
+    <option value="Token">
+</datalist>
+<datalist id="aspects">
+    <option value="Aggression">
+    <option value="Command">
+    <option value="Cunning">
+    <option value="Heroism">
+    <option value="Vigilance">
+    <option value="Villainy">
+    <option value="Command, Villainy">
+</datalist>
+<datalist id="rarities">
+    <option value="Common">
+    <option value="Uncommon">
+    <option value="Rare">
+    <option value="Legendary">
+    <option value="Special">
+</datalist>

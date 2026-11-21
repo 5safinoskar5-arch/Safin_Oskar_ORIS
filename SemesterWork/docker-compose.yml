@@ -1,0 +1,36 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: swu-db
+    environment:
+      POSTGRES_DB: swu
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      # Именованный том: данные сохраняются между перезапусками
+      - pgdata:/var/lib/postgresql/data
+      # Init-скрипты выполняются автоматически при первой инициализации БД
+      - ./sql/01_schema.sql:/docker-entrypoint-initdb.d/01_schema.sql:ro
+      - ./sql/02_seed.sql:/docker-entrypoint-initdb.d/02_seed.sql:ro
+    healthcheck:
+      # web стартует только после реальной готовности PostgreSQL принимать запросы
+      test: ["CMD-SHELL", "pg_isready -U postgres -d swu"]
+      interval: 3s
+      timeout: 3s
+      retries: 15
+
+  web:
+    build: .
+    container_name: swu-web
+    ports:
+      - "8080:8080"
+    environment:
+      # Именно "+", а не "localhost": внутри Linux-контейнера localhost недоступен с хоста
+      HTTP_PREFIX: "http://+:8080/"
+      DB_CONNECTION_STRING: "Host=db;Port=5432;Database=swu;Username=postgres;Password=postgres"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  pgdata:
